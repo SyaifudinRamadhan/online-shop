@@ -1,0 +1,44 @@
+{% extends "base_my_acc_page.html" %}
+
+{% load static %}
+
+
+{% block content %}
+	
+	<div class="container justify-content-center" style="margin-top:200px">
+		
+		<nav class="navbar navbar-light bg-white mt-5">
+		  <div class="container pd-3 ms-2">
+		  	<!-- BLOCK INI UNTUK MENEMPATKAN JUDUL HALAMAN -->
+		    <a class="navbar-brand ms-5" href="">My Voucher</a>
+		  </div>
+		</nav>
+
+		<div class="card mb-1 mt-2" style="width: 100%;">
+			  <div class="row g-0" style="flex-wrap:unset;">
+			    <div class="col-md-4" style="width:250px;">
+			      <img src="{% static 'img/tv.png' %}" class="img-fluid rounded-start" alt="...">
+			    </div>
+			    <div class="col-md-8" style="width:40%">
+			      <div class="card-body">
+			        <h5 class="card-title">Nama Produk</h5>
+			        <div class="card-text">Keterangan singkar produk</div>
+			        <button class="btn btn-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+	   					 Lihat Detail
+	 			    </button>
+			      </div>
+			    </div>
+			  </div>
+		</div>
+
+		<div class="collapse" id="collapseExample">
+			  <div class="card card-body">
+			   <h5 class="card-title">History Pengiriman</h5>
+			   <p class="card-text">yfgdfhudfyfbyfbydbfudbdbbfudiufiidbbidbbfbfrbfurbfrrbfbuufbubfbifbrfbrfbfbvrbufrb</p>
+			  </div>
+			</div>
+		</div>
+
+	</div>
+
+{% endblock content %}

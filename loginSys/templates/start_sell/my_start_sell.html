@@ -1,0 +1,66 @@
+{% extends "base_my_acc_page.html" %}
+
+{% block content %}
+
+	<div class="container" style="margin-top:200px">
+
+		<nav class="navbar navbar-light bg-white mt-5">
+		  <div class="container pd-3 ms-2">
+		  	<!-- BLOCK INI UNTUK MENEMPATKAN JUDUL HALAMAN -->
+		    <a class="navbar-brand ms-5" href="#">{{ judul }}</a>
+		  </div>
+		</nav>	
+		
+		<div class="card mt-5" style="background-color:#20c997">
+		  <div class="card-header">
+		    Persyaratan
+		  </div>
+		  <div class="card-body" style="background-color:#D0F8E3">
+		    <h5 class="card-title">Berikut ini adalah syarat yang harus anda setujui untuk mendaftar sebagai penjual</h5>
+		    <p class="card-text">1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		    <p class="card-text">2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		  </div>
+		</div>
+
+		<div class="card mt-5" style="background-color:#20c997">
+		  <div class="card-header">
+		    Benefit
+		  </div>
+		  <div class="card-body" style="background-color:#D0F8E3">
+		    <h5 class="card-title">Berikut ini adalah manfaat yang anda peroleh untuk mendaftar sebagai penjual</h5>
+		    <p class="card-text">1. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		    <p class="card-text">2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		  </div>
+		</div>	
+
+		<div class="container container-fluid d-flex justify-content-center">
+			<form method="post">
+				{% csrf_token %}
+				<input type="text" hidden="True" name="id" value="{{ user.id }}">
+				<button type="submit" name="as_seller" class="btn btn-warning mt-5 mb-5">Daftar Sekarang</button>
+			</form>
+		</div>	
+		
+	</div>
+	
+{% endblock content %}

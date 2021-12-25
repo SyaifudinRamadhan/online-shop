@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <title>ThreeQuiz | Student</title>
+  </head>
+  <body style="background-color:#fce3c7">
+   <!-- Mengatur Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light p-3" style="background-color:#ffa94d;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'img/bootstrap-logo.svg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+          ThreeQuiz
+        </a>
+        <h4>TEST SEDANG BERLANGSUNG | SELAMAT MENGERJAKAN !!!</h4>
+        
+      </div>
+    </nav>
+
+    <div class="text-center p-2 bg-warning">
+      <h7>{{ user }} | Server Time : 19.00 12 - 09 - 2021</h7>
+    </div>
+
+    <!-- Content Utama dalam row dan col ini -->
+    <div class="container mt-1">
+      <div class="row">
+        <div class="col">
+          {% block leftcontent %}
+            
+          {% endblock leftcontent %}
+        </div>
+        <div class="col-9 p-3 bg-light">
+          {% block maincontent %}
+            
+          {% endblock maincontent %}
+        </div>
+        <div class="col">
+          {% block rightcontent %}
+            
+          {% endblock rightcontent %}
+        </div>
+      </div>
+
+
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"⁄⁄></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

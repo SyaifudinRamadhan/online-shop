@@ -1,0 +1,134 @@
+{% extends "base_my_acc_page.html" %}
+
+{% load static %}
+
+{% block content %}
+	<script type="text/javascript"
+            src="https://app.midtrans.com/snap/snap.js"
+            data-client-key="{{ client_key }}"></script>
+    <script type="text/javascript" src="{% static 'JS_Script/snap_ctrl.js' %}"></script>
+	
+	<div class="container justify-content-center" style="margin-top:200px">
+
+		<ul class="nav nav-tabs">
+		  <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:order' %}" aria-current="page">Belum Dikonfirmasi</a>
+		  </li>
+		  <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link active text-success" style="border-bottom-color:#04a63c; background-color:#f8f9fa;" href="{% url 'oAuthLogged:pay' %}">Sudah Dipesan</a>
+		  </li>
+		   <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:process' %}">Sedang Diproses</a>
+		  </li>
+		   <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:finish' %}">Sudah Sampai</a>
+		  </li>
+		</ul>
+
+		<!-- packingan untuk satu pesanan dengan hidden detailnya -->
+		<div>
+
+		{% if len_trx != 0 %}
+
+			{% for v in view %}
+
+			{% if v.1|length != 0 %}
+			
+				<div class="card mt-3" style="width: 100%;">
+				 	<div class="alert alert-warning">
+					  <strong>Transaksi belum tuntas !</strong> Lakukan pembayaran (klik bayar) untuk melanjutkan transaksi.<br>
+					  <strong>Kode transaksi : {{ v.0 }}</strong><br>
+					  <strong>Status transaksi : 
+					  	{% if v.4 == '' %}
+					  		Belum dibayar
+					  	{% elif v.4 == '407' %}
+					  		Transaksi kadaluwarsa
+					  	{% elif v.4 == '202' %}
+					  		Transaksi ditolak
+					  	{% elif v.4 == '201' %}
+					  		Transaksi pending
+					  	{% else %}
+					  		Ada kesalahan lainnya
+					  	{% endif %}
+					  </strong><br>
+					  {% if v.5 != '' %}
+					  	<strong>VA Number : {{ v.5.bank }} {{ v.5.va_number }}</strong>
+					  {% endif %}
+					</div>
+				  <div class="card-body">
+				    {% for data in v.1 %}
+				    	
+				    	<div class="card mb-3 mt-2" style="width: 100%;">
+							  <div class="row g-0" style="flex-wrap:unset;">
+							    <div class="col-md-4" style="width:250px;">
+							      <a href="/detail?prd={{ data.0.id }}&post={{ data.1.id }}">
+							      	<img src="https://f-storage.000webhostapp.com/media/{{ data.2 }}" class="img-fluid rounded-start" alt="...">
+							      </a>
+							    </div>
+							    <div class="col-md-8" style="width:40%">
+							      <div class="card-body">
+							        <h5 class="card-title">
+								        {{ data.0.name }}
+								    </h5>
+							        <div class="card-text">Rp.{{ data.0.price }},00</div>
+							        <div class="card-text">Jumlah : {{ data.3 }} produk</div>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+
+				    {% endfor %}
+
+					
+
+				    <div class="justify-content-end d-flex">
+				    	<div class='cart'>
+					      <input type='hidden' id='snap_token{{ v.0 }}' value="{{ v.2 }}">
+					      
+					        <div class='popup'>
+					          <div class='row header'>
+					            
+					          </div>
+
+					          <div class='row items'>
+					           
+					          </div>
+					          <div class='row checkout{{ v.0 }}'>
+					            <span><a href='#'></a></span>
+					            <button type="submit" name="pay" class='btn btn-danger checkout-button{{ v.0 }}'>Bayar dan Konfirmasi</button>
+					          </div>
+					        </div>
+					     </div>
+				    </div>
+
+				    <!-- Script JS -->
+				    <script type="text/javascript">
+				    	get_snap('#snap_token{{ v.0 }}', '.checkout{{ v.0 }}');
+				    </script>
+				    <!-- -->	
+
+				  </div>
+				</div>
+
+					
+			{% endif %}
+
+
+			{% endfor %}
+
+		{% else %}
+			<div class="container justify-content-center text-center" style="margin-top:200px;">
+				<i class="bi bi-cart-fill text-secondary opacity-25" style="font-size:200pt;"></i>
+				<br>
+				<h5 class="text-dark mb-5">Belum ada data belanja di pesan.</h5>
+				
+				<h6 class="text-dark mb-3"> Selamat berbelanja :) !!!.</h6>
+			</div>
+		{% endif %}
+
+		</div>
+
+	</div>
+
+	
+{% endblock content %}

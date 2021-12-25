@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home</title>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"> </script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+</head>
+<body class="body-color">
+
+	<nav class="navbar navbar-dark fixed-top pb-4" style="background-color:#228B22;">
+	  <div class="p-2 mt-n3 container-fluid justify-content-start"  >
+	    <h5 class="text-light mb-0 h5">ZSnack Online Shop | </h5>
+	    <h6 class="text-light mb-0"> &nbsp;Selamat datang {{user}}</h6>
+	  </div>
+	</nav>
+	
+	  <div class="navbar-light fixed-top"  style="background-color:#32CD32; margin-top:67px;">
+
+			 <ul class="nav nav-tabs justify-content-center" style="border-bottom:0px;" id="myTab" role="tablist">
+			 
+				  <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn link-dark nav-link" type="button" aria-controls="home" aria-selected="true" href="{% url 'home' %}">
+				    <i class="bi bi-house-door-fill"></i><br>Home</a>
+
+				  </li>
+				  <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn link-dark nav-link" type="button" role="tab" aria-controls="home" aria-selected="true" href="{% url 'promo' %}">
+				    <i class="bi bi-gift-fill"></i><br>Promo</a>
+				  </li>
+				  <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn link-dark nav-link" type="button" role="tab" aria-controls="home" aria-selected="true" href="{% url 'favorit' %}">
+				    <i class="bi bi-suit-heart-fill"></i><br>Favorit</a>
+				  </li>
+				  <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn btn-success active" type="button" role="tab" aria-controls="home" aria-selected="true" href="{% url 'account' %}">
+				    <i class="bi bi-person-circle"></i><br>User</a>
+				  </li>
+				   <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn link-dark nav-link" type="button" role="tab" aria-controls="home" aria-selected="true" href="{% url 'cart' %}">
+				    <i class="bi bi-cart-fill"></i><br>Keranjang</a>
+				  </li>
+			</ul>
+	  	</div>
+
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#228B22; margin-top:135px; margin-bottom:11px;">
+	  <div class="container-fluid d-flex justify-content-center">
+
+	      <form method="post" action="{% url 'search' %}" class="d-flex justify-content-center">
+	      	{% csrf_token %}
+	        <input class="form-control me-2" style="width:290px" type="search" name="Search" placeholder="Search" aria-label="Search">
+	        <button class="btn btn-outline-light" type="submit">
+	        	<i class="bi bi-search"></i>
+	        </button>
+	      </form>
+	  
+	  </div>
+	</nav>
+
+	{% block content %}
+	{% endblock %}
+	
+
+</body>
+</html>

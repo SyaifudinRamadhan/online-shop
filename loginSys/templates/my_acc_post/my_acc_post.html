@@ -1,0 +1,50 @@
+{% extends "base_my_acc_page.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container justify-content-center" style="margin-top:200px">
+
+	<ul class="nav nav-tabs">
+	  <li class="nav-item tab-acc-link-menu">
+	    <a class="nav-link text-dark" href="/oAuth">Beli</a>
+	  </li>
+	  <li class="nav-item tab-acc-link-menu">
+	    <a class="nav-link active text-success" style="border-bottom-color:#04a63c; background-color:#f8f9fa;" aria-current="page" href="{% url 'oAuthLogged:post_view' %}">Postingan</a>
+	  </li>
+
+	</ul>
+
+	<a class="btn btn-success" style="width:100%" href="/oAuthSell/">Kelola Lebih</a>
+
+	<div class="navbar navbar-light bg-white mt-3 p-2 rounded-top">
+
+
+	    {% for v in view %}
+	    	
+	    	<div class="card mb-3 mt-2" style="width: 100%;">
+				<div class="row g-0" style="flex-wrap:unset;">
+					<div class="col-md-4" style="width:250px;">
+						<a href="/detail?prd={{ v.0.id }}&post={{ v.1.id }}">
+							<img src="https://f-storage.000webhostapp.com/media/{{ v.2.0 }}" class="img-fluid rounded-start" alt="...">
+						</a>
+					</div>
+					<div class="col-md-8" style="width:40%">
+						<div class="card-body">
+							<h5 class="card-title">
+								{{ v.0.name }}
+							</h5>
+							<div class="card-text">Rp.{{ v.0.price }},00</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	    {% endfor %}
+	
+	  
+	</div>
+
+</div>
+	
+{% endblock content %}

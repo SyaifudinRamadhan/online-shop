@@ -1,0 +1,177 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>My Product</title>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"> </script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+</head>
+<body class="body-color">
+	
+	<nav class="navbar navbar-dark fixed-top pb-4" style="background-color:#228B22;">
+	  <div class="p-2 mt-n3 container-fluid justify-content-start"  >
+	    <h5 class="text-light mb-0 h5">ZSnack Shop | </h5>
+	    <h6 class="text-light mb-0"> &nbsp;Selamat datang {{user}}</h6>
+	  </div>
+	</nav>
+
+
+	  <div class="navbar-light fixed-top"  style="background-color:#32CD32; margin-top:67px;">
+
+			 <ul class="nav nav-tabs justify-content-center" style="border-bottom:0px;" id="myTab" role="tablist">
+			 
+				  <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn link-dark nav-link" type="button" aria-controls="home" aria-selected="true" href="{% url 'home_seller:sell_product' %}">
+				    <i class="bi bi-inboxes-fill"></i><br>My Product</a>
+
+				  </li>
+				  <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn link-dark nav-link" type="button" role="tab" aria-controls="home" aria-selected="true" href="{% url 'home_seller:sell_promo' %}">
+				    <i class="bi bi-gift-fill"></i><br>My Promo</a>
+				  </li>
+				  <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn btn-success active" type="button" role="tab" aria-controls="home" aria-selected="true" href="{% url 'home_seller:sell_mng' %}">
+				    <i class="bi bi-graph-up"></i><br>Selling</a>
+				  </li>
+				   <li class="mt-1 nav-item" role="presentation">
+				  	<a class="btn link-dark nav-link" type="button" role="tab" aria-controls="home" aria-selected="true" href="{% url 'home_seller:sell_saldo' %}">
+				    <i class="bi bi-wallet2"></i><br>My Saldo</a>
+				  </li>
+			</ul>
+	  </div>
+
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#228B22; margin-top:135px; margin-bottom:11px">
+	  <div class="container-fluid d-flex justify-content-center">
+	        <input class="form-control me-2" style="width:290px" type="search" placeholder="Search" aria-label="Search" id="Search1">
+
+	      </form>
+	  </div>
+	</nav>
+
+	<!-- Ini dibawah bagian utama -->
+
+	<div class="container justify-content-center" style="margin-top:200px">
+
+	  <div class="card mb-5" >
+        <h5 class="card-header bg-info">Informasi</h5>
+        <div class="card-body">
+          <h5 class="card-title">Detail Penjulan Produk Anda</h5>
+          <p class="card-text">ZSnack adalah software berbasis website yang menyediakan layanan penjualan makanan daring. Tidak hanya online shop, ZSnack sendiri merupakan usaha pada bidang pangan sendiri yang juga memfasilitasi pengusaha lain untuk memasarkan produknya. Halaman ini adalah halaman depan dari user siswa atau peserta tes. Di bawah ini menu menu yang disediakan untk peserta tes..</p>
+        </div>
+      </div>
+		
+		<div class="mt-2">
+			<h5>{{ data.0.1 }}</h5>
+			<p class="mt-2">{{ data.0.2 }}</p>
+			<h6 class="mt-2 mb-2">Foto Produk :</h6>
+			{% for img in data.0.3 %}
+				{% if img != '' %}
+					
+						<img class="ms-2 mt-2" width="35%" height="35%" src="https://f-storage.000webhostapp.com/media/{{ img }}">
+					
+				{% endif %}
+			{% endfor %}
+			<p class="mt-3">Status : {{ data.0.4 }}</p>
+			<p class="mt-2">Stock : {{ data.0.5 }} produk</p>
+			<p class="mt-2">Harga satuan : Rp.{{ data.0.6 }},00</p>
+			<p class="mt-2">Kategori barang : {{ data.0.7 }}</p>
+			<p class="mt-2">Promosi tersedia : {{ data.0.8 }}</p>
+		</div>
+
+		<hr class="mt-5">
+
+		<div class="text-center">   Daftar Pembeli  </div>
+
+		{% if len_sell_data == 0 %}
+					<h5 class="mt-5 text-center"> Belum ada pembeli produk ini </h5>
+		{% endif %}		
+
+		<div id="cards">
+		{% for sell in sell_view %}
+		
+		<div class="card mb-3 mt-2" style="width: 100%;">
+		  <div class="row g-0" style="flex-wrap:unset;">
+		    <div class="col-md-4" style="width:250px;">
+		      <img src="/media/{{ sell.8 }}" width="70%" height="70%" class="img-fluid rounded-start" alt="...">
+		    </div>
+		    <div class="col-md-8" style="width:40%">
+		      <div class="card-body">
+		        <h5 class="card-title">{{ sell.0 }}</h5>
+		        <div class="card-text">Jumlah beli : {{ sell.2 }}</div>
+		        <div class="card-text">Terbayar : {{ sell.1 }} stock</div>
+		        <a class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#detail{{ sell.0 }}">Lihat Detail</a>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- Modal Edit Promo seller -->
+
+	<div class="modal fade" id="detail{{ sell.0 }}" tabindex="-1" aria-labelledby="detail" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Detail Transaksi</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+		      <div class="modal-body">
+		      
+		       <div class="mb-3">
+				    <label for="name" class="form-label">No. Traksaksi</label>
+				    <input type="text" name="name" required class="form-control" id="name" value="{{ sell.7 }}" disabled>
+				  </div>
+				  <div class="mb-3">
+				    <label for="desc" class="form-label">Tanggal Transaksi</label>
+				    <input type="text" name="desc" required class="form-control" id="desc" value="{{ sell.0 }}" disabled>
+				  </div>
+				  <div class="mb-3">
+				    <label for="img" class="form-label">Metode Pembayaran</label>
+				    <input type="text" name="st" required class="form-control" id="img" value="{{ sell.4 }}" disabled>
+				  </div>
+				  <div class="mb-3">
+				    <label for="stock" class="form-label">Jumlah Beli</label>
+				    <input type="text" name="end" required class="form-control" id="stock" value="{{ sell.2 }}" disabled>
+				  </div>
+				  <div class="mb-3">
+				    <label for="price" class="form-label">Biaya Ongkir</label>
+				    <input type="number" name="val" required class="form-control" id="price" value="{{ sell.3 }}" disabled>
+				  </div>
+				  <div class="mb-3">
+				    <label for="price" class="form-label">Terbayar</label>
+				    <input type="number" name="val" required class="form-control" id="price" value="{{ sell.1 }}" disabled>
+				  </div>
+				  <div class="mb-3">
+				    <label for="price" class="form-label">Pembeli</label>
+				    <input type="text" name="val" required class="form-control" id="price" value="{{ sell.5 }}" disabled>
+				  </div>
+				 
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		      </div>
+	  
+	    </div>
+	  </div>
+	</div>
+
+	
+	<!-- ++++++++++++++++++++++++++ -->
+
+		{% endfor %}
+		</div>
+	</div>
+
+<script src="{% static 'script/live_search_main.js' %}"></script>
+	<script type="text/javascript">
+		document.getElementById('Search1').addEventListener('keyup', function(){
+			search('Search1', 'cards');
+		});
+	</script>
+
+</body>
+</html>

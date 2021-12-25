@@ -1,0 +1,94 @@
+{% extends "base_my_cart.html" %}
+
+{% block content %}
+
+<div class="container justify-content-center text-center" style="margin-top:200px;">
+	<i class="bi bi-cart-fill text-secondary opacity-25" style="font-size:200pt;"></i>
+	<br>
+	<h5 class="text-dark mb-5">Anda belum Sign In. Silahkan klik login atau buat akun baru.</h5>
+	<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+	  <i class="bi bi-box-arrow-in-right text-light"></i>
+	  &nbsp;Login
+	</button>
+	<h6 class="text-dark mb-3">Belum punya akun. Klik di bawah ini !!!.</h5>
+	<button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#signUpModal">
+		<i class="bi bi-box-arrow-in-up-right text-light"></i>
+	  	&nbsp;Sing Up
+	</button>
+
+
+	<!-- Modal Login-->
+	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="Login Modal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <form method="post" action="">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		      	 <div class="mb-3">
+				    <label for="exampleInputEmail1" class="form-label">Email address / Username</label>
+				    <input type="text" name="username" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+				    <div id="emailHelp" class="form-text">Kerahasian data anda kami jamin</div>
+				  </div>
+				  <div class="mb-3">
+				    <label for="exampleInputPassword1" class="form-label">Password</label>
+				    <input type="password" name="pwd" minlength="8" required class="form-control" id="exampleInputPassword1">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="submit" name="login" class="btn btn-primary">Login</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal Sing Up -->
+	<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="Sign Up Modal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Sing Up</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <form method="post" action="">
+	      	 {% csrf_token %}
+		      <div class="modal-body">
+		          <div class="mb-3">
+				    <label for="username" class="form-label">Username</label>
+				    <input type="text" name="username" required class="form-control" id="username">
+				  </div>
+				  <div class="mb-3">
+				    <label for="email" class="form-label">Alamat E-Mail</label>
+				    <input type="email" name="email" required class="form-control" id="email" aria-describedby="emailHelp">
+				    <div id="emailHelp" class="form-text">Kerahasian data anda kami jamin</div>
+				  </div>
+				  <div class="mb-3">
+				    <label for="fname" class="form-label">Nama depan</label>
+				    <input type="text" name="fname" required class="form-control" id="fname">
+				  </div>
+				  <div class="mb-3">
+				    <label for="lname" class="form-label">Nama belakang</label>
+				    <input type="text" name="lname" required class="form-control" id="lname">
+				  </div>
+				  <div class="mb-3">
+				    <label for="pwd" class="form-label">Password</label>
+				    <input type="password" name="pwd" minlength="8" required class="form-control" id="pwd">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="submit" name="singup" class="btn btn-primary">Daftar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+</div>
+	
+{% endblock content %}

@@ -1,0 +1,97 @@
+{% extends "base_search.html" %}
+{% load static %}
+
+{% block maincontent %}
+
+<div class="container" style="margin-top:200px">
+<div class="mt-5 row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8 justify-content-center">
+		
+
+		<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+		  <div class="carousel-indicators">
+		    
+		    {% for v in nav %}
+		    	<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ v.0 }}" class="active" aria-current="true" aria-label="Slide {{ v.1 }}"></button>
+		    {% endfor %}
+		    
+		  </div>
+		  <div class="carousel-inner">
+		  
+		    {% for v in view.6 %}
+		    	<div class="carousel-item {{ v.1 }}" style="width:100%; height:500px" >
+			      <img width="100%" height="100%" src="https://f-storage.000webhostapp.com/media/{{ v.0 }}"  class="d-block" alt="...">
+			    </div>
+		    {% endfor %}
+		    
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>
+
+
+		<div class="card mt-5">
+		  <div class="card-header bg-warning">
+		    {{ view.2 }}
+		  </div>
+		  <div class="card-body">
+		    <blockquote class="blockquote mb-0">
+		      <p class="fw-bold" >Harga</p>
+		      <p class="fw-bold">Rp. {{ view.3 }},00</p>
+		      <p>Tersedia : {{ view.4 }} stock</p>
+		      <p>Lokasi : Sidoarjo</p>
+		      <footer><cite title="Source Title"></cite></footer>
+		    </blockquote>
+		  </div>
+		</div>
+
+		<div class="card text-center mt-2">
+		  <div class="card-header bg-info text-start">
+		    <h5 class="mt-1" ><img class="me-2 rounded-circle" width="50px" height="50px" src="https://f-storage.000webhostapp.com/media/{{ view.10 }}"> {{ view.9 }}</h5>
+		  </div>
+		  <div class="card-body text-start">
+		  	<h5>
+		  		{% for x in view.12 %}
+		  			<i class="bi bi-star-fill text-warning"></i>
+		  		{% endfor %}
+		  	</h5>
+		  	<h5 class="card-title fw-bold">Promo :</h5>
+		    <p class="card-text">{{ view.11.name }} => Diskon {{view.11.value }}%</p>
+		    <h5 class="card-title fw-bold mt-3">Deskripsi :</h5>
+		    <p class="card-text">{{ view.5 }}</p>
+		    <h5 class="card-title fw-bold mt-3">Catatan Untuk Pembeli :</h5>
+		    <p class="card-text">{{ view.8 }}</p>
+		    <form method="post" action="">
+		    	{% csrf_token %}
+		    	<input type="hidden" name="add_cart" value="{{ view.0 }}">
+		    	<input type="hidden" name="ID_Post" value="{{ view.1 }}">
+		    	<button type="submit" name="cart" class="btn btn-primary mt-5">Tambah Belanja</button>
+		    </form>
+		    <br>
+		    <form method="post">
+				{% csrf_token %}
+				<input type="hidden" name="check" value="{{ view.0 }}">
+				<input type="hidden" name="ID_Post" value="{{ view.1 }}">
+				<button type="submit" name="buy" class="btn btn-danger">Beli Sekarang</button>
+			</form>
+		    
+		  </div>
+		  <div class="card-footer text-muted  bg-info">
+		    
+		  </div>
+		</div>
+
+	</div>
+	<div class="col-md-2"></div>
+</div>
+</div>
+
+	
+{% endblock maincontent %}

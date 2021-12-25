@@ -1,0 +1,110 @@
+{% extends "base_search.html" %}
+{% load static %}
+
+{% block maincontent %}
+	
+
+<!-- Bagian content utama -->
+	<div class="container" style="margin-top:200px">
+	
+	</div>
+
+	<!-- Modal filter-->
+	<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="Filter Modal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Filter Pencarian</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      
+	      <form method="post">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		      	 <div class="mb-3">
+		      	 	<input type="hidden" name="keyword" value="{{ keyword }}">
+		      	 	<input type="hidden" name="key_type" value="{{ key_type }}">
+
+				   <label class="form-label mt-2">Penilaian</label><br>
+				   <input type="radio" class="btn-check mb-2" name="quality" value="5" id="q5" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="q5">Bintang 5</label>
+				   <input type="radio" class="btn-check mb-2" name="quality" value="4" id="q4" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="q4">Bintang 4+</label>
+				   <input type="radio" class="btn-check mb-2" name="quality" value="3" id="q3" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="q3">Bintang 3</label>
+				   <input type="radio" class="btn-check mb-2" name="quality" value="2" id="q2" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="q2">Bintang 2</label>
+				   <input type="radio" class="btn-check mb-2" name="quality" value="1" id="q1" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="q1">Bintang 1</label><br>
+
+				   <label class="form-label mt-2">Lokasi</label><br>
+				   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+				   Pilih Lokasi
+				   </button>
+				   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				      <li><label class="dropdown-item checkbox"><input type="radio" name="location" value="tulangan"> Tulangan</label></li>
+				      <li><label class="dropdown-item checkbox"><input type="radio" name="location" value="tanggulangin"> Tanggulangin</label></li>
+				      <li><label class="dropdown-item checkbox"><input type="radio" name="location" value="Krembung"> Krembung</label></li>
+				      <li><label class="dropdown-item checkbox"><input type="radio" name="location" value="ketintang"> Ketintang</label></li>
+				      <li><label class="dropdown-item checkbox"><input type="radio" name="location" value="jambangan"> Jambangan</label></li>
+				   </ul>
+
+				   <br><label class="form-label mt-2">Ongkos Kirim</label><br>
+				  	 <input type="radio" class="btn-check mb-2" name="shipping" value="gratis_ongkir" id="btn-check-outlined3" autocomplete="off">
+				  	 <label class="btn btn-outline-primary mb-2" for="btn-check-outlined3">Gratis Ongkir</label><br>
+
+				   </div>
+				  <div class="mb-3">
+				   </div>
+				  <div class="mb-3">
+				    
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="submit" name="flt" class="btn btn-primary">Gunakan Filter</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="container justify-content-center text-center" style="margin-top:5px">
+
+		{% if blank == 'yes' %}
+			
+			<i class="bi bi-search text-secondary opacity-25" style="font-size:200pt;"></i><br>
+			<h5 class="text-dark mb-5">Pencarian tidak ditemukan</h5>
+			<h6 class="text-dark mb-3">Silahkan masukkan keyword yan lain !!!.</h6>
+
+		{% endif %}
+
+		<ul class="nav justify-content-center mt-2">
+
+			{% for v in view %}
+				
+				<li class="mt-1 nav-item" role="presentation">
+					<a class="list-group-item-border link-seller-box" href="/detail?prd={{ v.0 }}&post={{ v.1 }}">
+						<div class="container mb-2 bg-white rounded-3 shadow border border-light border-4 img-seller-box">
+
+							<img src="https://f-storage.000webhostapp.com/media/{{ v.4.0 }}" class="img-seller">
+													
+						</div>
+							<p class="fw-bold">{{ v.2 }}</p>
+								Harga Rp. {{ v.3 }}
+							<p>
+								{% for x in v.5 %}
+									<i class="bi bi-star-fill text-warning"></i>
+								{% endfor %}
+							</p>
+					</a>
+				</li>
+
+			{% endfor %}
+					
+		</ul>
+
+	</div>
+
+
+{% endblock maincontent %}

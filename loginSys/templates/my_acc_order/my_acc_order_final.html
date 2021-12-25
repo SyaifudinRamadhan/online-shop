@@ -1,0 +1,107 @@
+{% extends "base_my_acc_page.html" %}
+
+{% load static %}
+
+
+{% block content %}
+	
+	<div class="container justify-content-center" style="margin-top:200px">
+
+		<ul class="nav nav-tabs">
+		  <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:order' %}" aria-current="page">Belum Dikonfirmasi</a>
+		  </li>
+		  <li class="nav-item tab-acc-link-menu">
+		    <a  class="nav-link text-dark" href="{% url 'oAuthLogged:pay' %}">Sudah Dipesan</a>
+		  </li>
+		   <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:process' %}">Sedang Diproses</a>
+		  </li>
+		   <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link active text-success" style="border-bottom-color:#04a63c; background-color:#f8f9fa;" href="{% url 'oAuthLogged:finish' %}">Sudah Sampai</a>
+		  </li>
+		</ul>
+
+		<!-- packingan untuk satu pesanan dengan hidden detailnya -->
+		{% if len_trx != 0 %}
+		
+			{% for v in view %}
+
+			{% if v.1|length != 0 %}
+			
+				<div class="card mt-3" style="width: 100%;">
+				 	<div class="alert alert-success">
+					  <strong>Transaksi sudah tuntas !</strong> Lakukan rating produk yang anda beli.<br>
+					  <strong>Kode transaksi : {{ v.0 }}</strong>
+					</div>
+				  <div class="card-body">
+				    {% for data in v.1 %}
+
+				    {% if data.4 == 'finish' %}
+				    
+				    	<div class="card mb-3 mt-2" style="width: 100%;">
+							  <div class="row g-0" style="flex-wrap:unset;">
+							    <div class="col-md-4" style="width:250px;">
+							      <a href="/detail?prd={{ data.0.id }}&post={{ data.1.id }}">
+							      	<img src="https://f-storage.000webhostapp.com/media/{{ data.2 }}" class="img-fluid rounded-start" alt="...">
+							      </a>
+							    </div>
+							    <div class="col-md-8" style="width:40%">
+							      <div class="card-body">
+							        <h5 class="card-title">
+								        {{ data.0.name }}
+								    </h5>
+							        <div class="card-text">Rp.{{ data.0.price }},00</div>
+							        <div class="card-text">Jumlah : {{ data.3 }} produk</div>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+
+							<div class="d-flex justify-content-end">
+								<form method="post">
+									{% csrf_token %}
+									<h5>Rating : </h5>
+									<input type="hidden" name="id_prd" value="{{ data.0.id }}">
+									<button type="submit" name="review" value="1" class="btn btn-outline-warning">1</button>
+									<button type="submit" name="review" value="2" class="btn btn-outline-warning">2</button>
+									<button type="submit" name="review" value="3" class="btn btn-outline-warning">3</button>
+									<button type="submit" name="review" value="4" class="btn btn-outline-warning">4</button>
+									<button type="submit" name="review" value="5" class="btn btn-outline-warning">5</button>
+
+								</form>
+							</div>
+
+				    {% endif %}
+
+				    {% endfor %}
+				    <div class="justify-content-end d-flex">
+				    	
+				    </div>
+				  </div>
+				</div>
+
+			{% else %}
+
+					<div class="alert alert-success">
+					  <strong>Transaksi sudah dibayar !</strong> Silahkan tunggu process nya. Lihat halaman process.<br>
+					  <strong>Kode transaksi : {{ v.0 }}</strong>
+					</div>
+
+			{% endif %}			
+
+			{% endfor %}
+
+		{% else %}
+			<div class="container justify-content-center text-center" style="margin-top:200px;">
+				<i class="bi bi-cart-fill text-secondary opacity-25" style="font-size:200pt;"></i>
+				<br>
+				<h5 class="text-dark mb-5">Belum ada data belanja di pesan.</h5>
+				
+				<h6 class="text-dark mb-3"> Selamat berbelanja :) !!!.</h6>
+			</div>
+		{% endif %}
+
+	</div>
+
+{% endblock content %}

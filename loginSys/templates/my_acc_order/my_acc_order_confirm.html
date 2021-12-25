@@ -1,0 +1,109 @@
+{% extends "base_my_acc_page.html" %}
+
+{% load static %}
+
+{% block content %}
+	
+	<div class="container justify-content-center" style="margin-top:200px">
+
+		<ul class="nav nav-tabs">
+		  <li class="nav-item tab-acc-link-menu">
+		    <a href="{% url 'oAuthLogged:order' %}" class="nav-link active text-success" style="border-bottom-color:#04a63c; background-color:#f8f9fa;" aria-current="page">Belum Dikonfirmasi</a>
+		  </li>
+		  <li  class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:pay' %}">Sudah Dipesan</a>
+		  </li>
+		   <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:process' %}">Sedang Diproses</a>
+		  </li>
+		   <li class="nav-item tab-acc-link-menu">
+		    <a class="nav-link text-dark" href="{% url 'oAuthLogged:finish' %}">Sudah Sampai</a>
+		  </li>
+		</ul>
+
+		{% if len_view != 0 %}
+		
+			<form method="post">
+				{% csrf_token %}
+			{% for v in view %}
+
+				<input type="hidden" name="id_stuffs" value="{{ v.0.id }}">
+				<input type="hidden" name="post_stuffs" value="{{ v.2.id }}">
+
+				<div class="card mb-3 mt-2" style="width: 100%;">
+				  <div class="row g-0" style="flex-wrap:unset;">
+				    <div class="col-md-4" style="width:250px;">
+				      <a href="/detail?prd={{ v.0.id }}&post={{ v.1.id }}">
+				      	<img src="https://f-storage.000webhostapp.com/media/{{ v.2.0 }}" class="img-fluid rounded-start" alt="...">
+				      </a>
+				    </div>
+				    <div class="col-md-8" style="width:40%">
+				      <div class="card-body">
+				        <h5 class="card-title">
+					        {{ v.0.name }}
+					    </h5>
+				        <div class="card-text">Rp.{{ v.0.price }},00</div>
+				        <div class="card-text">Jumlah : {{ v.3 }} produk</div>
+				        <a type="submit" name="cart" class="btn btn-danger mt-5" href="?min_cart={{ v.0.id }}">-</a>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				
+			{% endfor %}
+			<hr>
+			<div class="mb-3 row">
+			    <h5>Isikan alamatmu secara lengkap</h5>
+ 			 </div>
+
+ 			 <div class="mb-3 row">
+			    <label for="place" class="col-sm-2 col-form-label">Alamat Pembeli</label>
+			    <div class="col-sm-10">
+			    	<textarea required class="form-control" name="address" id="place" placeholder="Alamat saya ...">{{ other.0 }}</textarea>
+			    </div>
+ 			 </div>
+ 			 <div class="mb-3 row">
+			    <label for="place" class="col-sm-2 col-form-label">No WhatsApp</label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" name="phone" required value="{{ other.5 }}">
+			    </div>
+ 			 </div>
+ 			 <div class="mb-3 row">
+			    <label class="col-sm-2 col-form-label">Ongkir</label>
+			    <div class="col-sm-10">
+			    	<input type="hidden" name="price_ship" value="{{ other.2 }}">
+			    	<input type="number" disabled="" value="{{ other.2 }}" class="form-control">
+			    </div>
+ 			 </div>
+ 			 <div class="mb-3 row">
+			    <label class="col-sm-2 col-form-label">Harga Barang</label>
+			    <div class="col-sm-10">
+			    	<input type="hidden" name="price_stuff" value="{{ other.1 }}">
+			    	<input type="number" disabled="" value="{{ other.1 }}" class="form-control">
+			    </div>
+ 			 </div>
+ 			 <hr>
+ 			 <div class="mb-3 row">
+			    <label class="col-sm-2 col-form-label">Total Bayar</label>
+			    <div class="col-sm-10">
+			    	<input type="hidden" name="total" value="{{ other.3 }}">
+			    	<input type="number" disabled="" value="{{ other.3 }}" class="form-control">
+			    </div>
+ 			 </div>
+
+
+			<button type="submit" name="buy" class="btn btn-danger">Bayar Sekarang</button>
+			<button type="submit" name="cancel" class="btn btn-warning">Batalkan</button>
+			</form>
+		{% else %}
+			<div class="container justify-content-center text-center" style="margin-top:200px;">
+				<i class="bi bi-cart-fill text-secondary opacity-25" style="font-size:200pt;"></i>
+				<br>
+				<h5 class="text-dark mb-5">Belum ada data belanja di pesan.</h5>
+				
+				<h6 class="text-dark mb-3"> Selamat berbelanja :) !!!.</h6>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock content %}

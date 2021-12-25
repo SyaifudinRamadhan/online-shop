@@ -1,0 +1,103 @@
+{% extends "base_promo_page.html" %}
+
+{% load static %}
+
+
+{% block kategoribar %}
+
+			<div class="container cat-box-2 mt-1">
+			<div>
+				<div class="d-flex align-items-start">
+					<ul class="list-group d-flex align-items-start cat-list">
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=pangan pokok&promo=yes"><img class="icon-cat" src="{% static 'img/cat1.png' %}"><p>Makanan Pokok</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=junk food&promo=yes"><img class="icon-cat" src="{% static 'img/cat2.png' %}"><p>Junk Food</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=fast food&promo=yes"><img class="icon-cat" src="{% static 'img/cat3.png' %}"><p>Fast Food</p></a>
+							</div>
+						</li>
+						
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=olahan daging&promo=yes"><img class="icon-cat" src="{% static 'img/cat4.png' %}"><p>Olahan Daging</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=olahan sayuran&promo=yes"><img class="icon-cat" src="{% static 'img/cat5.png' %}"><p>Olahan Sayuran</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=gorengan&promo=yes"><img class="icon-cat" src="{% static 'img/cat6.png' %}"><p>Gorengan</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=jajan jalanan&promo=yes"><img class="icon-cat" src="{% static 'img/cat9.png' %}"><p>Jajanan Kering</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=kue manis&promo=yes"><img class="icon-cat" src="{% static 'img/tv.png' %}"><p>Kue Manis</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=jajanan kering&promo=yes"><img class="icon-cat" src="{% static 'img/cat9.png' %}"><p>Jajanan Kering</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=minuman es&promo=yes"><img class="icon-cat" src="{% static 'img/cat10.png' %}"><p>Minuman Es</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" href="/search_page?src=minuman hangat&promo=yes"><img class="icon-cat" src="{% static 'img/cat11.png' %}"><p style="font-size:14px;">Minuman Hangat</p></a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat">
+							<div class="list-group">
+								<a class="list-group-item" hhref="/search_page?src=olahan herbal&promo=yes"><img class="icon-cat" src="{% static 'img/cat12.png' %}"><p>Olahan Herbal</p></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	
+{% endblock kategoribar %}
+
+{% block contentPromoflash %}
+		<ul class="nav justify-content-center mt-2">
+		{% for view in promos %}
+							
+			<li class="mt-1 list-group-item">
+				<a class="list-group-item-border link-seller-box" href="/detail?prd={{ view.0 }}&post={{ view.1 }}">
+					<div class="container mb-2 bg-white rounded-3 shadow border border-light border-4 img-seller-box">
+
+						<img src="https://f-storage.000webhostapp.com/media/{{ view.4.1 }}" class="img-seller">	
+					</div>
+						<p class="fw-bold">{{ view.2 }}</p>
+							Harga Rp. {{ view.3 }}
+						<p>
+							{% for x in view.5 %}
+								<i class="bi bi-star-fill text-warning"></i>
+							{% endfor %}
+						</p>
+				</a>
+			</li>
+
+		{% endfor %}
+		</ul>
+			
+{% endblock contentPromoflash %}

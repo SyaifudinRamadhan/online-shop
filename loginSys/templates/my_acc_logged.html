@@ -1,0 +1,161 @@
+{% extends "base_my_acc_page.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container justify-content-center" style="margin-top:200px">
+
+	<ul class="nav nav-tabs">
+	  <li class="nav-item tab-acc-link-menu">
+	    <a class="nav-link active text-success" style="border-bottom-color:#04a63c; background-color:#f8f9fa;" aria-current="page" href="#">Beli</a>
+	  </li>
+	  <li class="nav-item tab-acc-link-menu">
+	    <a class="nav-link text-dark" href="{% url 'oAuthLogged:post_view' %}">Postingan</a>
+	  </li>
+	</ul>
+
+	<div class="navbar navbar-light bg-white mt-3 p-2 rounded-top">
+	  <div class="container-fluid">
+	    <a class="navbar-brand">
+	    	<i class="bi bi-clipboard-check fs-3 align-middle me-2 text-primary"></i> Pesanan Saya
+	    </a>
+	    <div class="d-flex">
+	      <a class="navbar-brand me-2" href="{% url 'oAuthLogged:order' %}"> 
+	      	<i class="bi bi-chevron-right fs-4 align-middle"></i>
+	      </a>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="cat-box-2 rounded-bottom p-2">
+		<div>
+				<div class="d-flex align-items-start">
+					<ul class="list-group d-flex align-items-start cat-list justify-content-center">
+						<li class="list-group-item  list-vertic-cat text-center">
+							<div class="list-group">
+								<a class="list-group-item" href="{% url 'oAuthLogged:pay' %}">
+									<i class="bi bi-credit-card-2-back fs-0"></i><br> Belum Bayar
+								</a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat text-center">
+							<div class="list-group">
+								<a class="list-group-item" href="{% url 'oAuthLogged:process' %}">
+									<i class="bi bi-box-seam fs-0"></i><br> Diproses
+								</a>
+							</div>
+						</li>
+						<li class="list-group-item  list-vertic-cat text-center">
+							<div class="list-group">
+								<a class="list-group-item" href="{% url 'oAuthLogged:finish' %}">
+									<i class="bi bi-star fs-0"></i><br> Beri Penilaian
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+	</div>
+
+	<div class="navbar navbar-light mt-3 p-2 rounded-5" style="background-color:aquamarine;">
+	  <div class="container-fluid">
+	    <a class="navbar-brand" href="{% url 'oAuthLogged:reg_seller' %}">
+	    	<i class="bi bi-shop-window fs-3 align-middle me-2 text-danger"></i> Mulai Jual
+	    </a>
+	    <div class="d-flex">
+	      <a class="navbar-brand me-2" href="{% url 'oAuthLogged:reg_seller' %}"> 
+	      	Register Gratis <i class="bi bi-chevron-right fs-4 align-middle"></i>
+	      </a>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="navbar navbar-light mt-3 p-2 rounded-5 mb-5" style="background-color:antiquewhite;">
+	  <div class="container-fluid" >
+	    <a class="navbar-brand" data-bs-toggle="modal" data-bs-target="#editAkunModal" href="#">
+	    	<i class="bi bi-person fs-3 align-middle me-2 text-danger"></i> Atur Akun
+	    </a>
+	    <div class="d-flex">
+	      <a class="navbar-brand me-2" data-bs-toggle="modal" data-bs-target="#editAkunModal" href="#"> 
+	      	Atur Ulang Akun <i class="bi bi-chevron-right fs-4 align-middle"></i>
+	      </a>
+	    </div>
+	  </div>
+	</div>
+
+
+	<div class=" mt-3 p-2 rounded-5 text-center" >
+	  <a class="btn btn-danger btn-lg btn-block" href="{% url 'oAuthLogged:logout' %}">Logout</a>
+	</div>
+
+	<div>
+        {% if len != 0 %}
+        <div class="mt-5 card">
+          <h5 class="card-header bg-danger text-light">Pesan Kesalahan</h5>
+          <div class="card-body">
+            {% for err in msg %}
+               <p class="card-text">{{ err }}</p>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+	<!-- Modal Edit Akun -->
+	<div class="modal fade" id="editAkunModal" tabindex="-1" aria-labelledby="Edit Akun Modal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Edit Akun</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      
+	      <form method="post" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-body">
+          <div class="mb-3 justify-content-center">
+            <img class="rounded-circle" style="margin-left:23%" src="https://f-storage.000webhostapp.com/media/{{ data_sec.Photo }}" width="50%" height="50%">
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" id="username" value="{{ data.username }}">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Alamat E-Mail</label>
+            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" value="{{ data.email }}">
+            <div id="emailHelp" class="form-text">Kerahasian data anda kami jamin</div>
+          </div>
+          <div class="mb-3">
+            <label for="fname" class="form-label">Nama depan</label>
+            <input type="text" name="fname" class="form-control" id="fname" value="{{ data.first_name }}">
+          </div>
+          <div class="mb-3">
+            <label for="lname" class="form-label">Nama belakang</label>
+            <input type="text" name="lname" class="form-control" id="lname" value="{{ data.last_name }}">
+          </div>
+          <div class="mb-3">
+            <label for="pwd" class="form-label">Password Lama</label>
+            <input type="password" name="pwd" minlength="10"  class="form-control" id="pwd">
+          </div>
+          <div class="mb-3">
+            <label for="pwd2" class="form-label">Password Baru</label>
+            <input type="password" name="pwd2" minlength="10"  class="form-control" id="pwd2">
+          </div>
+          <div class="mb-3">
+            <label for="img" class="form-label">Foto Profil</label>
+            <input type="file" name="img" accept="img/*" class="form-control" id="img">
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" name="edit" class="btn btn-primary">Simpan</button>
+          </div>
+        </form>
+	    </div>
+	  </div>
+	</div>
+
+
+</div>
+	
+{% endblock content %}

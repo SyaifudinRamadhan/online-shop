@@ -1,0 +1,109 @@
+{% extends "base_promo_page.html" %}
+
+{% load static %}
+
+{% block filterButton %}
+
+	  <button class="btn btn-outline-light ms-1" type="button" data-bs-toggle="modal" data-bs-target="#filterModal">
+	  	<i class="bi bi-funnel"></i>
+	  </button>
+	
+{% endblock filterButton %}
+
+{% block filterModal %}
+
+	<!-- Modal filter-->
+	<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="Filter Modal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Filter Pencarian</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      
+	      <form method="post">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		      	 <div class="mb-3">
+
+				   <label class="form-label">Metode pembayaran</label><br>
+				   <input type="checkbox" class="btn-check" name="pilih1" id="btn-check-outlined1" autocomplete="off">
+				   <label class="btn btn-outline-primary" for="btn-check-outlined1">COD (Bayar di Tempat)</label><br>
+
+				   <label class="form-label">Batas Harga</label><br>
+				   <input type="number" name="minPrice" class="form-control mb-2" placeholder="Minimal">
+				   <input type="number" name="maxPrice" class="form-control mb-2" placeholder="Maximal">
+
+				   <label class="form-label">Tipe Penjual</label><br>
+				   <input type="checkbox" class="btn-check" name="pilih2" id="btn-check-outlined2" autocomplete="off">
+				   <label class="btn btn-outline-primary" for="btn-check-outlined2">Premium</label>
+				   <input type="checkbox" class="btn-check" name="pilih3" id="btn-check-outlined3" autocomplete="off">
+				   <label class="btn btn-outline-primary" for="btn-check-outlined3">Star</label>
+				   <input type="checkbox" class="btn-check" name="pilih3" id="btn-check-outlined3" autocomplete="off">
+				   <label class="btn btn-outline-primary" for="btn-check-outlined3">Star+</label><br>
+
+				   <label class="form-label mt-2">Penilaian</label><br>
+				   <input type="checkbox" class="btn-check mb-2" name="pilih2" id="btn-check-outlined2" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="btn-check-outlined2">Bintang 5</label>
+				   <input type="checkbox" class="btn-check mb-2" name="pilih3" id="btn-check-outlined3" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="btn-check-outlined3">Bintang 4+</label>
+				   <input type="checkbox" class="btn-check mb-2" name="pilih3" id="btn-check-outlined3" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="btn-check-outlined3">Bintang 3+</label>
+				   <input type="checkbox" class="btn-check mb-2" name="pilih3" id="btn-check-outlined3" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="btn-check-outlined3">Bintang 2+</label>
+				   <input type="checkbox" class="btn-check mb-2" name="pilih3" id="btn-check-outlined3" autocomplete="off">
+				   <label class="btn btn-outline-primary mb-2" for="btn-check-outlined3">Bintang 1+</label><br>
+
+				   <label class="form-label mt-2">Lokasi</label><br>
+				   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+				   Pilih Lokasi
+				   </button>
+				   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				      <li><label class="dropdown-item checkbox"><input type="checkbox"> Two</label></li>
+				      <li><label class="dropdown-item checkbox"><input type="checkbox"> Two</label></li>
+				   </ul>
+
+				   <br><label class="form-label mt-2">Ongkos Kirim</label><br>
+				  	 <input type="checkbox" class="btn-check mb-2" name="pilih3" id="btn-check-outlined3" autocomplete="off">
+				  	 <label class="btn btn-outline-primary mb-2" for="btn-check-outlined3">Gratis Ongkir</label><br>
+
+				   </div>
+				  <div class="mb-3">
+				   </div>
+				  <div class="mb-3">
+				    
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="submit" name="flt" class="btn btn-primary">Gunakan Filter</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	
+{% endblock filterModal %}
+
+{% block contentPromoflash %}
+
+	{% if  count == True %}
+		<ul class="nav justify-content-center mt-2">
+			{% for x in data %}
+			
+			<li class="mt-1 nav-item" role="presentation">
+				<a class="list-group-item-border link-seller-box" href="#">
+					<div class="container mb-2 bg-white rounded-3 shadow border border-light border-4 img-seller-box">
+
+						<img src="{% static 'img/tv.png' %}" class="img-seller">
+												
+					</div>
+						Harga Rp. 25.000,00
+				</a>
+			</li>
+					
+			{% endfor %}
+		</ul>
+	{% endif %}
+	
+{% endblock contentPromoflash %}
